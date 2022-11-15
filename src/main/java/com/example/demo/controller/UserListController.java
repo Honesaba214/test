@@ -21,37 +21,38 @@ public class UserListController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
-	
+
 	/** ユーザー一蘭画面を表示 */
 	@GetMapping("/list")
-	public String getUserList(@ModelAttribute UserListForm form,Model model) {
+	public String getUserList(@ModelAttribute UserListForm form, Model model) {
 		//ユーザー一覧取得
-		MUser user = modelMapper.map(form,MUser.class);
-		
+		MUser user = modelMapper.map(form, MUser.class);
+
 		//ユーザー検索
-		List<MUser>userList = userService.getUsers(user);
-		
+		List<MUser> userList = userService.getUsers(user);
+
 		//モデルに表示
-		model.addAttribute("userList",userList);
-		
+		model.addAttribute("userList", userList);
+
 		// ユーザー一覧画面を表示
 		return "user/list";
 	}
+
 	//	ユーザー検索処理
 	@PostMapping("/List")
-	public String postUserList(@ModelAttribute UserListForm form,Model model) {
+	public String postUserList(@ModelAttribute UserListForm form, Model model) {
 		//	formをMUserクラスに変換
 		MUser user = modelMapper.map(form, MUser.class);
-		
+
 		//	ユーザー検索
 		List<MUser> userList = userService.getUsers(user);
-		
+
 		//	Modelに登録
-		model.addAttribute("userList",userList);
-		
+		model.addAttribute("userList", userList);
+
 		//	ユーザー一覧画面を表示
 		return "user/list";
 	}
